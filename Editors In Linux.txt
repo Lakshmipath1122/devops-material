@@ -1,0 +1,115 @@
+Editors In Linux
+
+## 1. vi / vim Editor
+
+**vi (Visual Editor)** and **vim (Vi Improved)** are command-line text editors available in Linux. 
+They are mainly used to create, edit, and modify files directly from the terminal.
+
+Open a file:
+
+
+vi filename.txt
+
+
+or
+
+
+vim filename.txt
+
+
+### Modes in vi/vim
+
+#### 1. Command Mode
+
+* Default mode when you open a file.
+* Used to navigate, delete, save, and exit.
+* Press `Esc` to come back to this mode.
+
+Common commands:
+
+
+:w        Save the file
+:q        Quit the editor
+:wq       Save and quit
+:q!       Quit without saving changes
+dd        Delete a line
+yy        Copy a line
+p         Paste copied content
+
+
+#### 2. Insert Mode
+
+* Used to add or modify text in the file.
+* Press:
+
+i    Insert text before cursor
+a    Insert text after cursor
+
+
+After editing, press:
+
+
+Esc
+
+
+to return to Command Mode.
+
+Example:
+
+
+vim test.txt
+
+
+Press `i`, enter the content, press `Esc`, then:
+
+:wq
+
+
+to save and exit.
+
+
+## 2. Nano Editor
+
+**Nano** is a simple and user-friendly command-line text editor in Linux. It is mostly used for quick file editing.
+
+Open a file:
+
+
+nano filename.txt
+
+
+In nano, you can directly type and edit the content without switching modes.
+
+Common shortcuts:
+
+
+Ctrl + O     Save the file
+Ctrl + X     Exit nano
+Ctrl + W     Search text
+Ctrl + K     Cut a line
+Ctrl + U     Paste a line
+```
+
+Example:
+
+nano test.txt
+
+
+Enter the required content, then:
+
+
+Ctrl + O
+Enter
+Ctrl + X
+
+
+to save and exit.
+
+### Difference between vi/vim and nano
+
+| vi/vim                                                | nano                        |
+| ----------------------------------------------------- | --------------------------- |
+| Powerful editor used by administrators and developers | Simple editor for beginners |
+| Has different modes                                   | No modes                    |
+| Faster for experienced users                          | Easy to learn               |
+| Used for advanced file editing                        | Used for quick changes      |

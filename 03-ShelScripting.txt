@@ -1,0 +1,511 @@
+
+=================
+Shell Scripting
+=================
+
+=> Scripting means writing set of commands in a file and executing them.
+
+=> Scripting is used to automate our daily routine tasks in the project.
+
+    Ex: delete temp files, take files backup, archive log files, monitor servers etc..
+
+=> Shell script file will have .sh extension
+
+=> We can execute shell script file like below
+
+	$ sh <file-name>
+
+=========
+Script-1
+========
+
+whoami
+pwd
+date
+ls -l
+touch f2.txt
+ls -l
+
+=========
+Script-2
+========
+
+echo "Welcome to Ram Technologies";
+
+echo "DevOps Course is Running"
+
+=========
+Script-3
+========
+
+echo "Enter Your Name";
+
+read name
+
+echo "Good Evening $name"
+
+=========
+Script-4
+========
+
+echo "Enter first number"
+
+read a
+
+echo "Enter second number"
+
+read b
+
+let sum=$(($a+$b))
+
+echo "Sum is $sum"
+
+
+========
+
+1) Variables  : To store the data
+
+2) Command Line Arguments : To supply input for script file
+
+3) Control Statements : To control execution of script file
+
+	3.1) if - elif
+	3.2) for loop
+	3.3) while loop
+
+4) functions : To divide large task into smaller tasks
+
+
+===========
+Variables
+===========
+
+=> Variables are used to store the data
+
+=> Variables are key-value pairs
+
+	a=10
+	b=20
+	name=ashok
+
+=> Variables are divided into 2 types
+
+	1) Environment Variables / System Variables
+
+		$ echo $USER
+		$ echo $SHELL
+
+	2) User Defined Variables
+
+		a=10
+		b=20
+		name=ashok
+
+
+===================
+Variable Rules
+===================
+
+1) We should not use special symbools like -, @, # etc in variable name
+
+2) Variable name shouldn't start with digit
+
+Note: It is recommended to take variable name as UPPERCASE character in scripting.
+
+
+=======================
+Command Line Arguments
+=======================
+
+=> The arguments which we will pass to script file at the time of execution
+
+ex:
+	$ sh script5.sh ashok it
+
+=> We can access command line arguments in script file like below
+
+$#  => No.of Args supplied
+
+$0  => Script file name
+
+$1  => First Cmd Argument
+
+$2  => Second CMD Argument
+
+$3  => Third cmd argument
+
+$*  => All Cmd arguments
+
+============
+Script-6
+============
+
+echo "No.of Args Supplied : $#"
+
+echo "First Arg : $1"
+
+echo "Second Arg: $2"
+
+echo "All Args : $*"
+
+##### Execution :: $ sh script6.sh Ram it
+
+==========
+Script-7
+=========
+
+echo "First Arg : $1"
+
+echo "Second Arg: $2"
+
+let result=$(($1*$2))
+
+echo "Multiply Result : $result"
+
+##### Execution :: $ sh script7.sh 2 4
+
+====================
+Control Statements
+====================
+
+=> Script will execute from top to bottom in forward direction (this is default behaviour) 
+
+=> If we want to control script execution flow then we have to use "Control Statements"
+
+
+=======================
+Conditional statements
+=======================
+
+=> Conditional statements are used to execute commands based on given condition
+
+Syntax:
+
+if [ condition ]
+then
+	stmts;
+else
+	stmts;
+fi
+
+=> As per above syntax if given condition satisifed then if statments will execute othewise else statements will execute.
+
+Note: If we want to check more than one conditon then "if - elif - else - fi"
+
+
+============
+script - 8
+============
+
+echo "Enter your name"
+read name
+
+if [ $name == 'raju' ]; then
+        echo "Hello, $name"
+
+elif [ $name == 'rani' ]; then
+        echo "Hi, $name"
+else
+       echo "Bye, $name"
+fi
+
+====================
+Looping Statements
+====================
+
+=> Loops are used to execute statements / commands multiple times
+
+Ex: print "hello" message for 1000 times (we can't write echo "hello" for 1000 times).
+
+
+1) for loop  (Range based loop)
+
+2) while loop (Conditional Based loop)
+
+
+===================================
+for loop example (1 to 10 numbers)
+===================================
+
+for((i=1; i<=10; i++))
+do
+        echo "$i"
+done
+
+============================
+print numbers from 10 to 1
+============================
+for((i=10; i>=1; i--))
+do
+        echo "$i"
+done
+
+
+===========
+while loop
+===========
+
+=> Print numbers from 10 to 1 using while loop
+
+i=10
+
+while [ $i -ge 1 ]
+do
+echo "$i"
+let i--;
+done
+
+=> Print numbers from 1 to 10 using while loop
+
+
+i=1
+
+while [ $i -le 10 ]
+do
+        echo "$i"
+
+   let i++
+
+done
+
+
+===========
+Functions
+===========
+
+=> Functions are used to perform some action / task.
+
+=> The big task can be divided into smaller tasks using functions.
+
+=> Functions are re-usable
+
+-------
+Syntax
+-------
+
+# write the function
+function functionName ( ) {
+	// body 
+}
+
+# call the function
+functionName
+
+
+===================================================================================
+Q) Write shell script to take file name as input and print content of that file
+===================================================================================
+
+---------------------------
+approach-1 (read command)
+---------------------------
+
+function readFileData(){
+        echo "enter file name"
+        read filename
+        echo "#### file reading start #####"
+        cat $filename
+        echo "##### file reading end #####"
+}
+
+#calling function
+readFileData
+
+----------------------
+approach-2 (cmd arg)
+----------------------
+
+filename=$1
+
+function readFileData(){
+        echo "#### file reading start #####"
+        cat $filename
+        echo "##### file reading end #####"
+}
+
+#calling function
+readFileData
+
+
+===========================================================================
+Q) Check presence of given file, if it is not available create that file
+============================================================================
+
+# file checking
+
+echo "Enter file name"
+
+read filename
+
+if [ -f "$filename" ] ; then
+  echo "File alredy exist"
+
+else
+  echo "File not available, hence creating"
+  touch $filename
+
+echo "File created...."
+fi
+
+
+===================================================================================
+Q) Check presence of given directory, if it is not available create that directory
+===================================================================================
+
+# file checking
+
+echo "Enter directory name"
+
+read dirname
+
+if [ -d "$dirname" ] ; then
+  echo "Directory alredy exist"
+
+else
+  echo "Directory not available, hence creating"
+  mkdir $dirname
+
+echo "directory created...."
+fi
+
+===========================
+Shell Script Assignments
+===========================
+
+Task-1 : Take a number from user and check given number is +ve or -ve
+Task-2 : Take a number from user and check given number is even or odd 
+Task-3  : Take a number from user and check given number is prime number or not
+Task-4  : Take a number from user and print multiplication table of given number like below
+
+5 * 1 = 5
+5 * 2 = 10
+5 * 3 = 15
+..
+5 * 10 = 50
+
+=========
+Summary
+=========
+
+1) What is Shell
+2) What is Kernel
+3) What is Scripting
+4) Why we need Scripting
+5) Writing Shell Script files (.sh extension)
+6) Executing shell script files ($ sh filename)
+7) Variables
+8) Taking input using shell script
+9) Commandline arguments
+10) Conditional Statements (if-elif-else-fi)
+11) Working with Loops (for and while)
+
+
+====================
+CRON JOBS in Linux
+====================
+
+=> CRON is a utility in linux which is used to schedule jobs execution
+
+	Ex: Run shell script (sysbackup.sh) file for every 1 hour
+
+=> In Realtime we will have several jobs for execution on hourly/daily/weekly/monthly/yearly basis
+
+	1) Take files backup
+	2) Delete temp files
+	3) Monitor system resources
+	4) Send alerts etc...
+
+==========================
+What is CROND in Linux?
+==========================
+
+=> CROND is a background process in Linux (Dameon Thread)
+
+=> CROND will check for cron schedules every minute. If any job is scheduled then crond will execute that job based on given schedule.
+
+
+=================
+CRON JOB Syntax
+=================
+
+	* * * * * <command/script-file>
+
+Note: Read CRON expression from left to right
+
+=> First * will represent Minutes ( 0 - 59 )
+
+=> Second * will represent hour ( 0 - 23 )
+
+=> Third * will represent day of month ( 1 - 31 )
+
+=> Fourth * will represent month of year ( 1 - 12)
+
+=> Fift * will represent day of week ( 0 - 6 or Mon, Tues, Wed... Sun)
+
+========================
+Sample CRON Expressions
+=======================
+
+Run for every 15 mins ::    */15  * * * * <script1.sh>
+
+Run every day @5:00 PM ::   0  17  * * * <script1.sh>
+
+Run every month first day @9:00 AM ::  0 9 1 * *  <script1.sh>
+
+
+#### Cron Expression Generator ::  https://crontab.cronhub.io/ ####
+
+
+=========================
+What is crontab file ?
+=========================
+
+=> crontab file is used to configure cronjobs for execution
+
+=> In Linux machine, for every user account one crontab file will be available.
+
+# Open crontab file
+
+$ crontab -e
+
+# Display cronjobs schedule
+
+$ crontab -l
+
+# Remove Crontab file
+
+$ crontab -r
+
+==================
+CRON Job practice
+==================
+
+1) Launch Linux Machine with Ubuntu AMI
+
+2) Connect with Ubuntu Machine using MobaXterm
+
+3) Create shell script file (Ex: task.sh)
+
+$ vi task.sh
+
+touch /home/ubuntu/f1.txt
+touch /home/ubunut/f2.txt
+
+4) Give Execute permission for shell script file
+
+	$ chmod +x task.sh
+
+5) Open crontab file and configure job schedule
+
+	$ crontab -e
+
+6) Configure cronjob like below and close that file
+
+	*/1 * * * * /bin/bash /home/ubuntu/task.sh
+
+7) After one minute check present working directory 
+
+	$ ls - l
+
+Note: files should be created.
+
